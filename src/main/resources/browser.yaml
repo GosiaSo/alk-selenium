@@ -1,0 +1,8 @@
+environment:
+  appUrl: https://helion.pl/
+
+browser:
+  browserName: chrome
+  attachscreenshot: true
+  headless: true
+  webelementTimeout: 15
