@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasItems;
 
 public class SearchTest extends Pages {
     private static final Logger logger = LoggerFactory.getLogger(SearchTest.class);
@@ -36,13 +36,40 @@ public class SearchTest extends Pages {
         logger.info(">>>> End of ISQTB Product Search test >>>>>");
     }
 
+    @Test
+    @DisplayName("id:002- Search for Robert C. Martin's books")
+    @Tag("search")
+    public void searchForMartinsBooks() {
+        logger.info(">>>> Start test id 002: Robert C. Martin's books>>>>>");
+
+        String searchItem = "Robert C. Martin";
+        searchWidget.searchProduct(searchItem);
+        String searchWord = searchWidget.getSearchWord();
+        assertThat(searchWord).isEqualTo(searchItem);
+        logger.info("Szukany tekst to: " + searchWord);
+
+        int numberOfProducts = productGrid.getNumberOfProducts();
+        assertThat(numberOfProducts).isEqualTo(11);
+        logger.info("Szukanych produktów jest: " + numberOfProducts);
+
+        logger.info(">>>> End of  test id 002: Robert C. Martin's books>>>>>");
+    }
 
     @Test
     @DisplayName("id:003- Search for random product")
     @Tag("search")
     public void searchForRandomProduct() {
         logger.info(">>>> Start test Random Product >>>>>");
-         // testt
+
+        String searchItem = "istqb";
+        searchWidget.searchProduct(searchItem);
+        productGrid.openRandomProduct();
+        String randomProductName = productPage.getProductName();
+
+        assertThat(randomProductName).containsIgnoringCase(searchItem);
+        assertThat(productPage.getLongDescriptionProduct()).containsIgnoringCase(searchItem);
+        logger.info("Produkt ze słowem kluczowym: " + searchItem + " został odnaleziony.");
+
         logger.info(">>>> End of Random Product Search test >>>>>");
     }
 }
