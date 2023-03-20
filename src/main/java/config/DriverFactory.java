@@ -34,6 +34,7 @@ public class DriverFactory {
     private void getChromeDriver() {
         ChromeOptions optionsChrome = new ChromeOptions();
         WebDriverManager.chromedriver().setup();
+        optionsChrome.addArguments("--remote-allow-origins=*");
         System.setProperty("webdriver.chrome.whitelistedIps", "");
         optionsChrome.addArguments("start-maximized");
         driver = new ChromeDriver(optionsChrome);
