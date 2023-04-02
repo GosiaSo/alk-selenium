@@ -12,13 +12,13 @@ public class SearchWidget extends BasePage {
         super(driver);
     }
 
-    @FindBy()
+    @FindBy(id = "inputSearch")
     private WebElement searchInput;
 
-    @FindBy()
+    @FindBy(id = "pageTitle")
     private WebElement searchWord;
 
-    @FindBy()
+    @FindBy(css = "#szukanie div.suggest-list")
     private WebElement searchResultDropDownList;
 
     @FindBy()
@@ -30,7 +30,8 @@ public class SearchWidget extends BasePage {
         enter();
     }
 
-    public String getSearchWord(){
-        return searchWord.getText();
+    public String getSearchWord() {
+        String text = searchWord.getText().trim();
+        return text.substring(text.indexOf("\"") + 1, text.lastIndexOf("\"")).trim();
     }
 }

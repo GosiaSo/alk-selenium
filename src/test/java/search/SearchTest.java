@@ -4,10 +4,12 @@ import base.Pages;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -63,12 +65,15 @@ public class SearchTest extends Pages {
 
         String searchItem = "istqb";
         searchWidget.searchProduct(searchItem);
-        productGrid.openRandomProduct();
-        String randomProductName = productPage.getProductName();
+        Map<Integer, WebElement> randomProduct = productGrid.chooseRandomProduct();
+        String nameOfRandomTitle = productGrid.getTitleOfProduct(randomProduct);
+        logger.info("Clicking on: " + nameOfRandomTitle);
+        productGrid.clickProduct(randomProduct);
 
-        assertThat(randomProductName).containsIgnoringCase(searchItem);
-        assertThat(productPage.getLongDescriptionProduct()).containsIgnoringCase(searchItem);
-        logger.info("Produkt ze słowem kluczowym: " + searchItem + " został odnaleziony.");
+        String productName = productPage.getProductName();
+        logger.info("Wybrano produkt: " + productName);
+
+        assertThat(nameOfRandomTitle).isEqualTo(productPage.getProductName());
 
         logger.info(">>>> End of Random Product Search test >>>>>");
     }

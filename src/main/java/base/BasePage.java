@@ -10,7 +10,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
@@ -34,7 +36,7 @@ public class BasePage {
     }
 
     public void enter() {
-        actions.sendKeys(Keys.ENTER);
+        actions.sendKeys(Keys.ENTER).build().perform();;
     }
 
     public void takeScreenshot() throws IOException {
@@ -50,6 +52,14 @@ public class BasePage {
         Random random = new Random();
         int randomIndexOfList = random.nextInt(elements.size());
         return elements.get(randomIndexOfList);
+    }
+
+    public Map<Integer,WebElement> getRandomElementWithIndex(List<WebElement> elements) {
+        Random random = new Random();
+        Map<Integer,WebElement> map = new HashMap();
+        int randomIndexOfList = random.nextInt(elements.size());
+        map.put(randomIndexOfList, elements.get(randomIndexOfList));
+        return map;
     }
 
     public void waitToBeClickable(WebElement element) {

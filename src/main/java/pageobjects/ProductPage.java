@@ -10,7 +10,7 @@ public class ProductPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(css = "book-details h1 span")
+    @FindBy(css = ".book-details h1 span")
     private WebElement productName;
 
     @FindBy(css = ".center-body-center")
